@@ -1,30 +1,43 @@
 package br.edu.ifsp.arq.goliveiracod.school.model;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Entity
+@EqualsAndHashCode
 public class Mentor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     private String name;
+    @NotNull
     private String country;
     @OneToMany(mappedBy = "mentor")
     private List<Student> students;
+    @JsonIgnore
+    @NotNull
     @ManyToOne
     private Program program;
-    @OneToMany(mappedBy = "mentor")
+    @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
     private List<StudentDisciplineGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
     private LocalDateTime createdAt = LocalDateTime.now();
+
+
+    public Mentor() {
+    }
+
+    public Mentor(String name, String country, Program program) {
+        this.name = name;
+        this.country = country;
+        this.program = program;
+    }
 }
