@@ -22,8 +22,6 @@ public class StudentDisciplineGivenByTheMentor {
     private Student student;
     @ManyToOne
     private Discipline discipline;
-    @ManyToOne
-    private ClassRoom classRoom;
     private Float note;
     private LocalDateTime last_change_note;
     private LocalDateTime createdAt = LocalDateTime.now();
