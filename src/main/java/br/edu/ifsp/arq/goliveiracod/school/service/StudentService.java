@@ -3,8 +3,7 @@ package br.edu.ifsp.arq.goliveiracod.school.service;
 import br.edu.ifsp.arq.goliveiracod.school.controller.StudentController;
 import br.edu.ifsp.arq.goliveiracod.school.controller.dto.StudentDto;
 import br.edu.ifsp.arq.goliveiracod.school.controller.form.StudentForm;
-import br.edu.ifsp.arq.goliveiracod.school.exception.MentorNotFoundException;
-import br.edu.ifsp.arq.goliveiracod.school.exception.ProgramNotFoundException;
+import br.edu.ifsp.arq.goliveiracod.school.exception.ResourceNotFoundException;
 import br.edu.ifsp.arq.goliveiracod.school.model.Mentor;
 import br.edu.ifsp.arq.goliveiracod.school.model.Student;
 import br.edu.ifsp.arq.goliveiracod.school.repository.MentorRepository;
@@ -48,7 +47,7 @@ public class StudentService {
         if (optionalMentor.isPresent())
             student = studentRepository.save(student);
         else
-            throw new MentorNotFoundException("Mentor not found");
+            throw new ResourceNotFoundException("Mentor not found");
         URI uri = uriComponentsBuilder.path(StudentController.baseURLWithId).buildAndExpand(student.getId()).toUri();
         return new ServiceCreateUtil<>(new StudentDto(student), uri);
     }
@@ -64,7 +63,7 @@ public class StudentService {
             Student student = optionalStudent.get();
             Optional<Mentor> optionalMentor = mentorRepository.findById(studentForm.getMentor().getId());
             if (optionalMentor.isEmpty()) {
-                throw new ProgramNotFoundException("Mentor not found");
+                throw new ResourceNotFoundException("Mentor not found");
             }
             student.setName(studentForm.getName());
             student.setMentor(studentForm.getMentor());

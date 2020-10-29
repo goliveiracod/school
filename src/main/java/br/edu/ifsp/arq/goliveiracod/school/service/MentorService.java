@@ -3,7 +3,7 @@ package br.edu.ifsp.arq.goliveiracod.school.service;
 import br.edu.ifsp.arq.goliveiracod.school.controller.MentorController;
 import br.edu.ifsp.arq.goliveiracod.school.controller.dto.MentorDto;
 import br.edu.ifsp.arq.goliveiracod.school.controller.form.MentorForm;
-import br.edu.ifsp.arq.goliveiracod.school.exception.ProgramNotFoundException;
+import br.edu.ifsp.arq.goliveiracod.school.exception.ResourceNotFoundException;
 import br.edu.ifsp.arq.goliveiracod.school.model.Mentor;
 import br.edu.ifsp.arq.goliveiracod.school.model.Program;
 import br.edu.ifsp.arq.goliveiracod.school.repository.MentorRepository;
@@ -40,14 +40,14 @@ public class MentorService {
         return MentorDto.converter(mentors);
     }
 
-    public ServiceCreateUtil<MentorDto> create(MentorForm mentorForm, UriComponentsBuilder uriComponentsBuilder) throws ProgramNotFoundException {
+    public ServiceCreateUtil<MentorDto> create(MentorForm mentorForm, UriComponentsBuilder uriComponentsBuilder) {
         Mentor mentor = mentorForm.converter();
         Optional<Program> optionalProgram = programRepository.findById(mentor.getProgram().getId());
 
         if (optionalProgram.isPresent())
             mentor = mentorRepository.save(mentor);
         else
-            throw new ProgramNotFoundException("Program not found");
+            throw new ResourceNotFoundException("Program not found");
 
         URI uri = uriComponentsBuilder.path(MentorController.baseURLWithId).buildAndExpand(mentor.getId()).toUri();
         return new ServiceCreateUtil<>(new MentorDto(mentor), uri);
@@ -64,7 +64,7 @@ public class MentorService {
             Mentor mentor = optionalMentor.get();
             Optional<Program> optionalProgram = programRepository.findById(mentorForm.getProgram().getId());
             if (optionalProgram.isEmpty()) {
-                throw new ProgramNotFoundException("Program not found");
+                throw new ResourceNotFoundException("program not found");
             }
             mentor.setName(mentorForm.getName());
             mentor.setCountry(mentorForm.getCountry());

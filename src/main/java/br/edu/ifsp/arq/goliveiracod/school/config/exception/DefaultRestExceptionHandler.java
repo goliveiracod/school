@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
-public class CustomRestDefaultExceptionHandler extends ResponseEntityExceptionHandler {
+public class DefaultRestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -33,7 +33,7 @@ public class CustomRestDefaultExceptionHandler extends ResponseEntityExceptionHa
 
         ApiError apiError =
                 new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
-        
+
         return handleExceptionInternal(
                 ex, apiError, headers, apiError.getStatus(), request);
     }
