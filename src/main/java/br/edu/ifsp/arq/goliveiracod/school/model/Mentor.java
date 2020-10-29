@@ -1,9 +1,9 @@
 package br.edu.ifsp.arq.goliveiracod.school.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,13 +21,15 @@ public class Mentor {
     private String name;
     @NotNull
     private String country;
+    @JsonBackReference
     @OneToMany(mappedBy = "mentor")
     private List<Student> students;
     @JsonIgnore
     @NotNull
     @ManyToOne
     private Program program;
-    @OneToMany(mappedBy = "mentor", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "mentor")
     private List<StudentDisciplineGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
     private LocalDateTime createdAt = LocalDateTime.now();
 
