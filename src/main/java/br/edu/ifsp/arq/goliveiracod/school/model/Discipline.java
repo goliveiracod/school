@@ -1,16 +1,13 @@
 package br.edu.ifsp.arq.goliveiracod.school.model;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Entity
 public class Discipline {
@@ -19,7 +16,16 @@ public class Discipline {
     private Long id;
     @NotNull
     private String name;
+    @JsonIgnore
     @OneToMany(mappedBy = "discipline")
     private List<StudentDisciplineGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public Discipline() {
+
+    }
+
+    public Discipline(String name) {
+        this.name = name;
+    }
 }
