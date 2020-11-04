@@ -21,7 +21,7 @@ public class Student {
     private Mentor mentor;
     @JsonIgnore
     @OneToMany(mappedBy = "student")
-    private List<StudentDisciplineGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
+    private List<StudentDisciplineNoteGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Student() {

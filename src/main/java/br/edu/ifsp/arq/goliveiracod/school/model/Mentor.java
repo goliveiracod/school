@@ -30,7 +30,7 @@ public class Mentor {
     private Program program;
     @JsonIgnore
     @OneToMany(mappedBy = "mentor")
-    private List<StudentDisciplineGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
+    private List<StudentDisciplineNoteGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
     private LocalDateTime createdAt = LocalDateTime.now();
 
 

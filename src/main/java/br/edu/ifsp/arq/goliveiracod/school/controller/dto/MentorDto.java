@@ -3,7 +3,8 @@ package br.edu.ifsp.arq.goliveiracod.school.controller.dto;
 import br.edu.ifsp.arq.goliveiracod.school.model.Mentor;
 import br.edu.ifsp.arq.goliveiracod.school.model.Program;
 import br.edu.ifsp.arq.goliveiracod.school.model.Student;
-import br.edu.ifsp.arq.goliveiracod.school.model.StudentDisciplineGivenByTheMentor;
+
+import br.edu.ifsp.arq.goliveiracod.school.model.StudentDisciplineNoteGivenByTheMentor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,7 @@ public class MentorDto {
     private String country;
     private List<Student> students;
     private Program program;
-    private List<StudentDisciplineGivenByTheMentor> studentDisciplineGivenByTheMentors;
+    private List<StudentDisciplineNoteGivenByTheMentor> studentDisciplineNoteGivenByTheMentors;
     private LocalDateTime createdAt;
 
     public MentorDto(Mentor mentor) {
@@ -27,7 +28,7 @@ public class MentorDto {
         country = mentor.getCountry();
         students = mentor.getStudents();
         program = mentor.getProgram();
-        studentDisciplineGivenByTheMentors = mentor.getStudentDisciplineNoteGivenByTheMentors();
+        studentDisciplineNoteGivenByTheMentors = mentor.getStudentDisciplineNoteGivenByTheMentors();
         createdAt = mentor.getCreatedAt();
     }
 

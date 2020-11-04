@@ -7,12 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Data
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"mentor_id", "student_id", "discipline_id"})})
-public class StudentDisciplineGivenByTheMentor {
+public class StudentDisciplineNoteGivenByTheMentor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +22,23 @@ public class StudentDisciplineGivenByTheMentor {
     @ManyToOne
     private Discipline discipline;
     private Float note;
-    private LocalDateTime last_change_note;
+    private LocalDateTime lastChangeNote;
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public StudentDisciplineNoteGivenByTheMentor(){
+
+    }
+
+    public StudentDisciplineNoteGivenByTheMentor(
+            Mentor mentor,
+            Student student,
+            Discipline discipline,
+            Float note
+    ) {
+        this.mentor = mentor;
+        this.student = student;
+        this.discipline = discipline;
+        this.note = note;
+        this.lastChangeNote = LocalDateTime.now();
+    }
 }
